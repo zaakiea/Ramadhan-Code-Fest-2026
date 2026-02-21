@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Wowo's Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div id="score-display" class="hidden">0</div>
+        <div id="ui-overlay">
+            <div id="start-menu" class="menu-box">
+                <h1>Wowo's Adventure</h1>
+                <p>Klik atau Tekan Space untuk Lompat</p>
+                <button onclick="startGame()">MULAI</button>
+            </div>
+            <div id="game-over-menu" class="menu-box hidden">
+                <h1>TAMAT</h1>
+                <p>Skor Anda: <span id="final-score">0</span></p>
+                <p>Terbaik: <span id="high-score">0</span></p>
+                <button onclick="startGame()">COBA LAGI</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
