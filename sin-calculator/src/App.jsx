@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AMAL_TYPE, calculateWeight, getRandomHadist } from './utils/amalHeuristics';
 import Header from './components/Header';
 import StatsBar from './components/StatsBar';
@@ -10,11 +10,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleExclamation, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default function App() {
-  const [surgaPercentage, setSurgaPercentage] = useState(50);
-  const [history, setHistory] = useState([]);
+  const [surgaPercentage, setSurgaPercentage] = useState(() => {
+    const savedPercentage = localStorage.getItem('akhirat_surga');
+    return savedPercentage !== null ? parseFloat(savedPercentage) : 50;
+  });
+
+  const [history, setHistory] = useState(() => {
+    const savedHistory = localStorage.getItem('akhirat_history');
+    return savedHistory !== null ? JSON.parse(savedHistory) : [];
+  });
+
   const [description, setDescription] = useState('');
   const [hadistModal, setHadistModal] = useState({ isOpen: false, text: '' });
   const [validationPopup, setValidationPopup] = useState({ isOpen: false, message: '' });
+
+  useEffect(() => {
+    localStorage.setItem('akhirat_surga', surgaPercentage);
+  }, [surgaPercentage]);
+
+  useEffect(() => {
+    localStorage.setItem('akhirat_history', JSON.stringify(history));
+  }, [history]);
 
   const handleAddAmal = (type) => {
     if (!description.trim()) {
